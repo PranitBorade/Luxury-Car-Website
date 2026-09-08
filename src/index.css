@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #0B0B0D;
+    color: #F5F5F0;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #141416;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #C9A227;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #E4B83A;
+  }
+}
+
+@layer components {
+  .gold-gradient {
+    background: linear-gradient(135deg, #C9A227 0%, #E4B83A 50%, #A8841F 100%);
+  }
+
+  .card-glass {
+    background: rgba(20, 20, 22, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 162, 39, 0.12);
+  }
+
+  .nav-link {
+    @apply font-inter font-medium text-sm tracking-wide text-offwhite/70 hover:text-gold transition-colors duration-200 cursor-pointer relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #C9A227;
+    transition: width 0.25s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    @apply text-gold;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-gold text-charcoal font-inter font-semibold text-sm tracking-widest px-8 py-3.5 transition-all duration-200;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-primary:hover {
+    @apply bg-gold-light;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(201, 162, 39, 0.25);
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 border border-gold/40 text-gold font-inter font-medium text-sm tracking-wide px-6 py-2.5 transition-all duration-200 hover:border-gold hover:bg-gold/5;
+  }
+
+  .section-label {
+    @apply font-inter text-xs tracking-[0.3em] text-gold uppercase font-medium;
+  }
+
+  .section-title {
+    @apply font-playfair text-3xl md:text-4xl lg:text-5xl text-offwhite font-medium leading-tight;
+  }
+
+  .input-field {
+    @apply w-full bg-nearblack border border-offwhite/10 text-offwhite placeholder-offwhite/30 font-inter text-sm px-4 py-3 focus:outline-none focus:border-gold/60 transition-colors duration-200;
+  }
+
+  .spec-row {
+    @apply grid grid-cols-[180px_1fr] md:grid-cols-[200px_1fr] gap-4 py-3 border-b border-offwhite/5;
+  }
+}
+
+@layer utilities {
+  .font-playfair {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .text-gold {
+    color: #C9A227;
+  }
+
+  .gold-text-gradient {
+    background: linear-gradient(135deg, #C9A227, #E4B83A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ---- Specific Component Styles ---- */
+
+/* Hero diagonal accent line */
+.hero-accent-line {
+  position: absolute;
+  width: 1px;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, #C9A227, transparent);
+}
+
+/* Car card hover effect */
+.car-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.car-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(201, 162, 39, 0.2);
+}
+
+/* Compare sticky bar */
+.compare-bar-enter {
+  animation: slideUp 0.3s ease forwards;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Comparison table column highlight */
+.compare-col-highlight {
+  background: rgba(201, 162, 39, 0.05);
+  border-left: 1px solid rgba(201, 162, 39, 0.15);
+  border-right: 1px solid rgba(201, 162, 39, 0.15);
+}
+
+/* Checkbox custom style */
+input[type="checkbox"].compare-check {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"].compare-check:checked {
+  background: #C9A227;
+  border-color: #C9A227;
+}
+
+input[type="checkbox"].compare-check:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #0B0B0D;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+input[type="checkbox"].compare-check:hover:not(:checked) {
+  border-color: #C9A227;
+  background: rgba(201, 162, 39, 0.08);
+}
+
+/* Range slider custom style */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: rgba(245, 245, 240, 0.15);
+  outline: none;
+  border-radius: 1px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #C9A227;
+  cursor: pointer;
+  border: 2px solid #0B0B0D;
+  box-shadow: 0 0 0 1px #C9A227;
+}
+
+/* EMI chart tooltip */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background: #141416 !important;
+  border: 1px solid rgba(201, 162, 39, 0.2) !important;
+  color: #F5F5F0 !important;
+}
+
+/* Footer social icons */
+.social-icon {
+  @apply w-9 h-9 flex items-center justify-center border border-offwhite/10 text-offwhite/50 hover:border-gold/40 hover:text-gold transition-all duration-200;
+}
+
+/* Image placeholder gradient */
+.car-img-placeholder {
+  background: linear-gradient(135deg, #141416 0%, #1a1a1e 40%, #0f0f11 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.car-img-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(201, 162, 39, 0.04) 100%);
+}
+
+/* Confirmation message animation */
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.confirm-message {
+  animation: fadeInScale 0.35s ease forwards;
+}
+
+/* Mobile hamburger menu */
+.menu-overlay {
+  animation: fadeIn 0.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Specs accordion */
+.specs-section {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
